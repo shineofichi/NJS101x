@@ -19,5 +19,8 @@
   "homepage": "https://github.com/shineofichi/NJS101x#readme",
   "devDependencies": {
     "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "express": "^4.17.3"
   }
 }

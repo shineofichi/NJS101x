@@ -6,8 +6,8 @@ const rootDir = require("../util/path");
 const route = express.Router();
 
 route.get("/", (req, res, next) => {
-  console.log(adminData.product);
-  res.render("shop");
+  const products = adminData.product;
+  res.render("shop", { products: products, docTitle: "Shop" });
 });
 
 module.exports = route;

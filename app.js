@@ -14,7 +14,7 @@ app.use(shopRoutes);
 app.use("/admin", adminData.routes);
 app.use(express.static(path.join(__dirname, "public")));
 app.use((req, res, next) => {
-  res.status(404).render("404");
+  res.status(404).render("404", { pageTitle: "Not Found" });
 });
 
 app.listen(3000);

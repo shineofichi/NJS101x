@@ -60,3 +60,10 @@ exports.getCheckout = (req, res, next) => {
     pageTitle: "Checkout",
   });
 };
+
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  const prodPrice = req.body.productPrice;
+  Cart.deleteProduct(prodId, prodPrice);
+  res.redirect("/cart");
+};

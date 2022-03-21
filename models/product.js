@@ -1,29 +1,56 @@
-const Cart = require("./cart");
-const db = require("../util/database");
+const { Sequelize } = require("sequelize");
 
-module.exports = class Product {
-  constructor(id, title, imageUrl, description, price) {
-    this.id = id;
-    this.title = title;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.price = price;
-  }
+const sequelize = require("../util/database");
 
-  save() {
-    return db.execute(
-      "INSERT INTO product(title, imageUrl, description, price) VALUES (?, ?, ? ,?)",
-      [this.title, this.imageUrl, this.description, this.price]
-    );
-  }
+const Product = sequelize.define("product", {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  title: Sequelize.STRING,
+  price: {
+    type: Sequelize.DOUBLE,
+    allowNull: false,
+  },
+  description: {
+    type: Sequelize.DOUBLE,
+    allowNull: false,
+  },
+  imageUrl: {
+    type: Sequelize.DOUBLE,
+    allowNull: false,
+  },
+});
 
-  static deleteById(id) {}
+module.exports = Product;
+// const Cart = require("./cart");
+// const db = require("../util/database");
 
-  static fetchAll() {
-    return db.execute("SELECT * FROM product");
-  }
+// module.exports = class Product {
+//   constructor(id, title, imageUrl, description, price) {
+//     this.id = id;
+//     this.title = title;
+//     this.imageUrl = imageUrl;
+//     this.description = description;
+//     this.price = price;
+//   }
 
-  static findById(id) {
-    return db.execute("SELECT * FROM product WHERE id = ?", [id]);
-  }
-};
+//   save() {
+//     return db.execute(
+//       "INSERT INTO product(title, imageUrl, description, price) VALUES (?, ?, ? ,?)",
+//       [this.title, this.imageUrl, this.description, this.price]
+//     );
+//   }
+
+//   static deleteById(id) {}
+
+//   static fetchAll() {
+//     return db.execute("SELECT * FROM product");
+//   }
+
+//   static findById(id) {
+//     return db.execute("SELECT * FROM product WHERE id = ?", [id]);
+//   }
+// };

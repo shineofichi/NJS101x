@@ -18,6 +18,7 @@ app.set("views", "views");
 
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
+const { use } = require("./routes/admin");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
@@ -48,8 +49,8 @@ Cart.belongsToMany(Product, { through: CartItem });
 Product.belongsToMany(Cart, { through: CartItem });
 
 sequelize
-  .sync({ force: true })
-  //   .sync()
+  //   .sync({ force: true })
+  .sync()
   .then(() => {
     return User.findByPk(1);
   })
@@ -60,7 +61,9 @@ sequelize
     return user;
   })
   .then((user) => {
-    console.log(user);
+    user.createCart();
+  })
+  .then((cart) => {
     app.listen(3000);
   })
   .catch((err) => {

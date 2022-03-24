@@ -1,3 +1,5 @@
+const ObjectId = require("mongodb").ObjectId;
+
 const Product = require("../models/product");
 const { getDb } = require("../util/database");
 
@@ -61,7 +63,7 @@ exports.postEditProduct = (req, res, next) => {
     updatedPrice,
     updatedDescription,
     updatedImageUrl,
-    prodId
+    new ObjectId(prodId)
   );
   updateProduct
     .save()
@@ -90,12 +92,7 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.findByPk(prodId)
-    .then((product) => {
-      return product.destroy();
-    })
-    .then(() => {
-      console.log("Product was deleted!");
-      res.redirect("/admin/products");
-    });
+  Product.deleteById(prodId).then(() => {
+    res.redirect("/admin/products");
+  });
 };

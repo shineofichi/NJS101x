@@ -1,11 +1,10 @@
-const { get } = require("express/lib/response");
-
 const getDb = require("../util/database").getDb;
 const ObjectId = require("mongodb").ObjectId;
 class User {
-  constructor(userName, email, id) {
+  constructor(userName, email, cart, id) {
     this.name = userName;
     this.email = email;
+    this.cart = cart;
     this.id = id;
   }
 
@@ -22,7 +21,9 @@ class User {
       });
   }
   addToCart(product) {
-    const updatedProduct = { items: { ...product, quantity: 1 } };
+    const updatedProduct = {
+      items: { productId: new ObjectId(product._id), quantity: 1 },
+    };
     const db = getDb();
     return db
       .collection("users")

@@ -12,7 +12,7 @@ const orderSchema = new Schema({
   },
   items: [
     {
-      productId: {
+      product: {
         type: Object,
         required: true,
       },

@@ -56,8 +56,11 @@ userSchema.methods.deleteItemFromCart = function (productId) {
 userSchema.methods.addOrder = function () {
   return this.populate("cart")
     .then((user) => {
+      const items = user.cart.items.map((i) => {
+        return { quantity: i.quantity, product: i.productId };
+      });
       const order = {
-        items: user.cart.items,
+        items: items,
         user: {
           _id: this._id,
           name: this.name,

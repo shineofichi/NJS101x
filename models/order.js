@@ -22,6 +22,7 @@ const orderSchema = new Schema({
 });
 
 module.exports = mongoose.model("Order", orderSchema);
+
 // const { Sequelize } = require("sequelize");
 
 // const sequelize = require("../util/database");
